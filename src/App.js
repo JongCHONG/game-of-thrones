@@ -24,22 +24,33 @@ class App extends Component {
   handleFavoriteClick(index) {
     const { fullName, title, imageUrl } = this.state.characters[index]
     const newFavorite = {
-      name: fullName,
+      fullName: fullName,
       title: title,
       image: imageUrl
     }
+
     this.setState({favorites: [...this.state.favorites, newFavorite]})
   }
 
   render() {
-    const { characters } = this.state
+    const { characters, favorites } = this.state
     console.log(this.state)
 
     return (
       <div className="container py-1">
-        <h1>Game of thrones</h1>
-        
-        <div className="row">
+        <div className="top d-flex justify-content-between">
+          <h1>Game of thrones</h1>
+          {/* <button type="button" className="btn btn-outline-dark">Liste des favoris</button> */}
+        </div>
+        <div className="favorite"> 
+          Liste des favorites : 
+          <ul>
+          {favorites.map((element) => {
+            return <li>{element.fullName}</li>
+          })}
+          </ul>
+        </div>
+        <div className="row my-2">
           {characters.map((element, index) => {
             return (
               <Character 
