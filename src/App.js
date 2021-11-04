@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Character from './components/Character'
+import './App.css'
 
 class App extends Component {
   constructor() {
@@ -23,18 +24,22 @@ class App extends Component {
 
     return (
       <div className="container py-1">
-      <h1>Game of thrones</h1>
-      {characters.map((element, index) => {
-        return (
-          <Character 
-            key={index}
-            name={element.fullName} 
-            title={element.title}
-            image={element.imageUrl}
-          />
-        )
-      })}
+        <h1>Game of thrones</h1>
         
+        <div className="row">
+          {characters.map((element, index) => {
+            return (
+              <Character 
+                key={index}
+                name={element.fullName} 
+                title={element.title}
+                image={element.imageUrl}
+              />
+            )
+          })}
+
+        </div>
+          
       </div>
     )
   }
