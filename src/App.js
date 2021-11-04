@@ -18,11 +18,23 @@ class App extends Component {
       .then(result => { this.setState({characters: result}) }) // on détaille l'action à exécuter sur ce JSON
   }
   render() {
+    const { characters } = this.state
     console.log(this.state)
+
     return (
       <div className="container py-1">
       <h1>Game of thrones</h1>
-        <Character />
+      {characters.map((element, index) => {
+        return (
+          <Character 
+            key={index}
+            name={element.fullName} 
+            title={element.title}
+            image={element.imageUrl}
+          />
+        )
+      })}
+        
       </div>
     )
   }

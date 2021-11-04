@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 
 class Character extends Component {
   render() {
+    const { name, image, title } = this.props
     return (
       <div>
-        <p>Character</p>
+        <img src={image} alt="" />
+        <p>{name}</p>
+        <p>{title}</p>
       </div>
     );
   }
