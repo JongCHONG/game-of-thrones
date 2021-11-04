@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Character from './components/Character'
+import Continents from './components/Continents'
 import './App.css'
 
 class App extends Component {
@@ -10,10 +11,12 @@ class App extends Component {
 
     this.state = {
       characters: [],
-      favorites: []
+      favorites: [],
+      onglets: "personnages"
     }
 
     this.handleFavoriteClick = this.handleFavoriteClick.bind(this)
+    this.handleOnglets = this.handleOnglets.bind(this)
   }
 
   componentDidMount() {
@@ -31,41 +34,51 @@ class App extends Component {
 
     this.setState({favorites: [...this.state.favorites, newFavorite]})
   }
+  handleOnglets(str) {
+    this.setState({onglets: str})
+  }
 
   render() {
-    const { characters, favorites } = this.state
+    const { characters, favorites,onglets } = this.state
     console.log(this.state)
 
     return (
       <div className="container py-1">
         <div className="top d-flex justify-content-between">
           <h1>Game of thrones</h1>
-          {/* <button type="button" className="btn btn-outline-dark">Liste des favoris</button> */}
+          <button onClick={() => this.handleOnglets("personnages")} type="button" className="btn btn-outline-dark">Personnages</button>
+          <button onClick={() => this.handleOnglets("continents")} type="button" className="btn btn-outline-dark">Continents</button>
         </div>
-        <div className="favorite"> 
-          Liste des favorites : 
-          <ul>
-          {favorites.map((element) => {
-            return <li>{element.fullName}</li>
-          })}
-          </ul>
-        </div>
-        <div className="row my-2">
-          {characters.map((element, index) => {
-            return (
-              <Character 
-                key={index}
-                name={element.fullName} 
-                title={element.title}
-                image={element.imageUrl}
-                index={index}
-                handleFavoriteClick={this.handleFavoriteClick}
-              />
-            )
-          })}
-
-        </div>
-          
+        {onglets === "personnages" ? 
+          <>
+            {/* Personnages */}
+            <div className="favorite"> 
+              Liste des favorites : 
+              <ul>
+              {favorites.map((element, index) => {
+                return <li key={index}>{element.fullName}</li>
+              })}
+              </ul>
+            </div>
+            <div className="row my-2">
+              {characters.map((element, index) => {
+                return (
+                  <Character 
+                    key={index}
+                    name={element.fullName} 
+                    title={element.title}
+                    image={element.imageUrl}
+                    index={index}
+                    handleFavoriteClick={this.handleFavoriteClick}
+                  />
+                )
+              })}
+            </div>
+            {/* Fin du personnages */}
+          </> 
+        : 
+          <Continents />
+        }
       </div>
     )
   }
