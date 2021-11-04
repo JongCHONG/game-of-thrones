@@ -29,7 +29,8 @@ class App extends Component {
     const newFavorite = {
       fullName: fullName,
       title: title,
-      image: imageUrl
+      image: imageUrl,
+      isFavorite: true
     }
 
     this.setState({favorites: [...this.state.favorites, newFavorite]})
@@ -39,7 +40,7 @@ class App extends Component {
   }
 
   render() {
-    const { characters, favorites,onglets } = this.state
+    const { characters, favorites, onglets } = this.state
     console.log(this.state)
 
     return (
@@ -70,6 +71,7 @@ class App extends Component {
                     image={element.imageUrl}
                     index={index}
                     handleFavoriteClick={this.handleFavoriteClick}
+                    isFavorite={this.state.favorites.isFavorite}
                   />
                 )
               })}
