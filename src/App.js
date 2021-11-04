@@ -9,8 +9,11 @@ class App extends Component {
     super()
 
     this.state = {
-      characters: []
+      characters: [],
+      favorites: []
     }
+
+    this.handleFavoriteClick = this.handleFavoriteClick.bind(this)
   }
 
   componentDidMount() {
@@ -18,6 +21,16 @@ class App extends Component {
       .then(response => response.json()) // on transforme la donnée reçue en JSON 
       .then(result => { this.setState({characters: result}) }) // on détaille l'action à exécuter sur ce JSON
   }
+  handleFavoriteClick(index) {
+    const { fullName, title, imageUrl } = this.state.characters[index]
+    const newFavorite = {
+      name: fullName,
+      title: title,
+      image: imageUrl
+    }
+    this.setState({favorites: [...this.state.favorites, newFavorite]})
+  }
+
   render() {
     const { characters } = this.state
     console.log(this.state)
@@ -34,6 +47,8 @@ class App extends Component {
                 name={element.fullName} 
                 title={element.title}
                 image={element.imageUrl}
+                index={index}
+                handleFavoriteClick={this.handleFavoriteClick}
               />
             )
           })}
