@@ -16,6 +16,7 @@ class App extends Component {
     }
 
     this.handleFavoriteClick = this.handleFavoriteClick.bind(this)
+    this.handleDeleteFavoriteClick = this.handleDeleteFavoriteClick.bind(this)
     this.handleOnglets = this.handleOnglets.bind(this)
   }
 
@@ -25,15 +26,21 @@ class App extends Component {
       .then(result => { this.setState({characters: result}) }) // on détaille l'action à exécuter sur ce JSON
   }
   handleFavoriteClick(index) {
-    const { fullName, title, imageUrl } = this.state.characters[index]
+    const { fullName, title, imageUrl, id } = this.state.characters[index]
     const newFavorite = {
+      id: id,
       fullName: fullName,
       title: title,
       image: imageUrl,
-      isFavorite: true
     }
 
     this.setState({favorites: [...this.state.favorites, newFavorite]})
+  }
+  handleDeleteFavoriteClick(id) {
+    console.log(id)
+    const array = [...this.state.favorites]
+    array.splice(id, 1)
+    this.setState({favorites: array})
   }
   handleOnglets(str) {
     this.setState({onglets: str})
@@ -63,15 +70,18 @@ class App extends Component {
             </div>
             <div className="row my-2">
               {characters.map((element, index) => {
+                const inFavoritesList = favorites.some(like => like.id === element.id)
                 return (
                   <Character 
+                    id={element.id}
                     key={index}
                     name={element.fullName} 
                     title={element.title}
                     image={element.imageUrl}
                     index={index}
                     handleFavoriteClick={this.handleFavoriteClick}
-                    isFavorite={this.state.favorites.isFavorite}
+                    handleDeleteFavoriteClick={this.handleDeleteFavoriteClick}
+                    inFavoritesList={inFavoritesList}
                   />
                 )
               })}
