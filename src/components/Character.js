@@ -7,12 +7,14 @@ class Character extends Component {
     return (
       <div className="col-lg-4 col-md-4 col-sm-4 char">
         <img src={image} alt="" />
+        {/* <div class="" style="{background-image: url(`${image}`)}"></div> */}
+        {/* Dans app.css => background-size: cover */}
         <p>{name}</p>
         <p>{title}</p>
         {inFavoritesList ?         
           <button onClick={() => this.props.handleDeleteFavoriteClick(id)}>
             Supprimer
-          </button>
+          </button> 
         : 
           <button onClick={() => this.props.handleFavoriteClick(index)}>
             Add to favorite
